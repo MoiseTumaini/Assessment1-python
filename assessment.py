@@ -1,5 +1,5 @@
 class StringProcessor:
-    def reverse_words_in_sentence(self, sentence: str) -> str:
+    def reverse_words_in_sentence(sentence: str) -> str:
         """
         Reverses each word in a given sentence string, while preserving the original order
         of the words and the spacing between them.
@@ -20,7 +20,12 @@ class StringProcessor:
         - "" (empty string) should become ""
         - "  " (only spaces) should become "  "
         """
-        pass
+
+        split_lst = sentence.split(" ")
+        reverse = [word[::-1] for word in split_lst]
+
+        return " ".join(reverse)
+        # pass
 
 class NumberCruncher:
     def process_numbers(self, numbers: list[int]) -> dict[str, int]:
@@ -45,7 +50,16 @@ class NumberCruncher:
         - [] (empty list) should return {"sum_of_evens": 0, "product_of_odds": 1}
         - [-2, -3, -4, 5] should return {"sum_of_evens": -6, "product_of_odds": -15}
         """
-        pass
+        even = 0
+        odd = 1
+        even_sum = [even + num for num in numbers if num%2 == 0]
+        odd_prod = [odd*num for num in numbers if num%2 != 0]
+        prod = 1 
+        for i in odd_prod:
+            prod *= i
+
+        return {"sum_of_evens": sum(even_sum), "product_of_odds": prod}#even_sum, odd_prod
+        # pass
 
 class LogicValidator:
     def check_discount_eligibility(self, age: int, is_member: bool, has_coupon: bool) -> str:
@@ -67,7 +81,20 @@ class LogicValidator:
         Return the string representing the determined discount type.
         Assume age will be a non-negative integer.
         """
-        pass
+
+        if age >= 65: 
+            return "Senior Discount"
+        elif age < 18 and age >= 0:
+            return "Student Discount"
+        else:
+            if is_member and has_coupon:
+                return "Member Coupon Discount"
+            elif is_member: 
+                return "Member Discount"
+            elif has_coupon:
+                return "Coupon Discount"
+        return "No Discount"
+        # pass
 
 class PasswordValidatorTDD:
     # NOTE TO STUDENT: For this class, you must first write the unit tests in
@@ -90,4 +117,8 @@ class PasswordValidatorTDD:
         You should implement this method *after* writing comprehensive unit tests
         for it in the test_assessment.py file.
         """
+    
         pass
+
+if __name__ == '__main__':
+    print(StringProcessor.reverse_words_in_sentence("trace is home"))
